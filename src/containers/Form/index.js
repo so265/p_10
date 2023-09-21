@@ -4,8 +4,8 @@ import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
 import Button, { BUTTON_TYPES } from "../../components/Button";
 
-const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 1000); })
-
+const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500); }) // la fonction mockContactApi simule une requête asynchrone en utilisant setTimeout avec un délai de 500 millisecondes 
+//  la simulation d'envoi prend moins de temps (500 ms au lieu de 1000 ms) avant de déclencher l'appel à onSuccess.
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
   const sendContact = useCallback(
@@ -16,6 +16,7 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess(); // J'appelle la fonction ici pour l executer
       } catch (err) {
         setSending(false);
         onError(err);
