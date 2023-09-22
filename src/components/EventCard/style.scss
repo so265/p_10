@@ -9,7 +9,7 @@
     width: 274px;
     height: 190px;
     .EventCard__imageContainer {
-      height: 126px;
+     //height: 126px; // cree des problémes de hauteur d'image coupée
       min-height: auto;
       overflow: hidden;
     }

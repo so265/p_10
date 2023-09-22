@@ -13,4 +13,4 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+export const getMonth = (date) => MONTHS[date.getMonth() +1]; // J'ajoute +1 à 'index du mois pour afficher les mois correctement, en JavaScript, les mois sont indexés à partir de 0

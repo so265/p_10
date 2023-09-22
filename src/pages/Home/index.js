@@ -3,6 +3,7 @@ import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
 
+
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
@@ -12,8 +13,18 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
+
 const Page = () => {
-  const {last} = useData()
+
+  const { data } = useData();
+
+  const lastProjectCopy = data?.events.slice();
+
+  const sortedProject = lastProjectCopy?.sort((EventA, EventB) => 
+  new Date(EventB.date) - new Date(EventA.date));
+
+  const lastProject = sortedProject?.[0];
+
   return <>
     <header>
       <Menu />
@@ -22,8 +33,8 @@ const Page = () => {
       <section className="SliderContainer">
         <Slider />
       </section>
-      <section className="ServicesContainer">
-        <h2 id="nos-services" className="Title">Nos services</h2>
+      <section id="nos-services" className="ServicesContainer">
+        <h2 className="Title">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
           <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
@@ -55,8 +66,8 @@ const Page = () => {
         <h2 className="Title">Nos réalisations</h2>
         <EventList />
       </section>
-      <section className="PeoplesContainer">
-        <h2 id="notre-equipe" className="Title">Notre équipe</h2>
+      <section id="notre-equipe" data-testid="PeoplesContainerTest" className="PeoplesContainer">
+        <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
           <PeopleCard
@@ -115,14 +126,17 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
+      {lastProject ? (
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={lastProject.cover}
+          title={lastProject.title}
+          date={new Date(lastProject.date)}
           small
           label="boom"
         />
+      ) : (
+      <p>Pas de projet récent disponible</p>
+    )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
@@ -130,16 +144,16 @@ const Page = () => {
         <div>01 23 45 67 89</div>
         <div>contact@77events.com</div>
         <div>
-          <a href="#twitch">
+          <a data-testid="linkTest" href="#twitch">
             <Icon name="twitch" />
           </a>
-          <a href="#facebook">
+          <a data-testid="linkTest" href="#facebook">
             <Icon name="facebook" />
           </a>
-          <a href="#twitter">
+          <a data-testid="linkTest" href="#twitter">
             <Icon name="twitter" />
           </a>
-          <a href="#youtube">
+          <a data-testid="linkTest" href="#youtube">
             <Icon name="youtube" />
           </a>
         </div>
