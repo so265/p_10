@@ -1,3 +1,4 @@
+// Mois qui s'affichent sur les images
 export const MONTHS = {
   1: "janvier",
   2: "février",
